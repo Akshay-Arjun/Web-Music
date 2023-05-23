@@ -40,7 +40,7 @@ function MusicPlayer({ selectedSong, handleDownload }) {
       <p className="song-artist">{selectedSong.primaryArtists}</p>
       <audio className="audio-player" ref={audioRef} src={selectedSong.downloadUrl.find(item => item.quality === '320kbps').link} controls />
       <button className="play-button" onClick={handlePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
-      <br />
+      
       <button className="play-button" onClick={() => handleDownload(selectedSong)}>Download</button>
     </div>
   );

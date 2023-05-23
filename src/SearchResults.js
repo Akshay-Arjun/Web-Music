@@ -12,7 +12,7 @@ function SearchResults({ searchResults, handleSongSelect, handleDownload }) {
             <img className="song-image" src={song.image.find((item) => item.quality === '500x500').link} alt="Song Cover" />
           )}
           <button className="play-button" onClick={() => handleSongSelect(song)}>Play</button>
-          <br />
+        
           <button className="play-button" onClick={() => handleDownload(song)}>Download</button>
         </div>
       ))}
