@@ -8,6 +8,7 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false); // Add isPlaying state
 
   const handleSearch = async () => {
     try {
@@ -28,31 +29,36 @@ function App() {
   };
 
   const handleSongSelect = (song) => {
-    setSelectedSong(song);
+    console.log(song.image);
+    setSelectedSong({ ...song, image: song.image.find(item => item.quality === '500x500').link });
+    setIsPlaying(true);
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
+  
+
+  
 
   const handleDownload = async (song) => {
     const downloadUrl = song.downloadUrl.find((item) => item.quality === '320kbps').link;
-  
+
     try {
       const response = await fetch(downloadUrl);
       const blob = await response.blob();
-  
+
       const url = URL.createObjectURL(blob);
-  
+
       const link = document.createElement('a');
       link.href = url;
       link.download = `${song.name} ${song.primaryArtists}.mp3`; // Set the downloaded file's name
       link.target = '_blank';
       link.click();
-  
+
       URL.revokeObjectURL(url); // Clean up the URL object
     } catch (error) {
       console.error('Error occurred while downloading:', error);
       // Handle error
     }
   };
-  
 
   return (
     <div>
@@ -67,7 +73,8 @@ function App() {
         handleSongSelect={handleSongSelect}
         handleDownload={handleDownload}
       />
-      <MusicPlayer selectedSong={selectedSong} handleDownload={handleDownload} />
+      <MusicPlayer selectedSong={selectedSong} handleDownload={handleDownload} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+
     </div>
   );
 }
