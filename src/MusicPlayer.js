@@ -20,7 +20,7 @@ function MusicPlayer({ selectedSong, handleDownload }) {
   }, [selectedSong]);
 
   if (!selectedSong) {
-    return <div className="music-player"> Damn! The page looks empty. Why not search for songs using above search bar?</div>;
+    return <div className="music-player"> Damn! The music player looks empty. Why not search for songs using above search bar & click on play?</div>;
   }
 
   const handlePlay = () => {
