@@ -4,6 +4,7 @@ import './MusicPlayer.css';
 function MusicPlayer({ selectedSong, handleDownload }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [sarcasticMessage, setSarcasticMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false); // To control popup visibility
   const audioRef = useRef(null);
   const isInitialRender = useRef(true);
 
@@ -31,13 +32,22 @@ function MusicPlayer({ selectedSong, handleDownload }) {
   ];
 
   useEffect(() => {
-    setIsPlaying(false);
+    if (!isInitialRender.current && selectedSong) {
+      // Display a sarcastic message immediately after selecting a song
+      const randomLine = sarcasticLines[Math.floor(Math.random() * sarcasticLines.length)];
+      setSarcasticMessage(randomLine);
+      setShowPopup(true); // Show the popup when the song is selected
 
-    if (!isInitialRender.current && audioRef.current) {
-      audioRef.current.load();
-      audioRef.current.play();
-      setIsPlaying(true);
-      window.scrollTo(0, document.body.scrollHeight);
+      setTimeout(() => {
+        setShowPopup(false); // Hide the popup after 5 seconds
+      }, 5000); // 5 seconds duration
+
+      if (audioRef.current) {
+        audioRef.current.load();
+        audioRef.current.play();
+        setIsPlaying(true);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
     } else {
       isInitialRender.current = false;
     }
@@ -54,10 +64,8 @@ function MusicPlayer({ selectedSong, handleDownload }) {
   const handlePlay = () => {
     if (isPlaying) {
       audioRef.current.pause();
-      setSarcasticMessage('');
+      setSarcasticMessage(''); // Optional: Clear message when paused
     } else {
-      const randomLine = sarcasticLines[Math.floor(Math.random() * sarcasticLines.length)];
-      setSarcasticMessage(randomLine);
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
@@ -75,10 +83,10 @@ function MusicPlayer({ selectedSong, handleDownload }) {
         src={selectedSong.downloadUrl.find((item) => item.quality === '320kbps').link}
         controls
       />
-      
-      {/* Sarcastic message above buttons */}
-      {sarcasticMessage && (
-        <div className="sarcastic-message" style={sarcasticMessageStyle}>
+
+      {/* Fake Popup */}
+      {showPopup && sarcasticMessage && (
+        <div className="sarcastic-popup" style={sarcasticPopupStyle}>
           {sarcasticMessage}
         </div>
       )}
@@ -94,18 +102,46 @@ function MusicPlayer({ selectedSong, handleDownload }) {
   );
 }
 
-// Inline styles for sarcastic messages
-const sarcasticMessageStyle = {
+// Inline styles for sarcastic popup
+const sarcasticPopupStyle = {
   backgroundColor: '#ffcc00', // Yellow background for attention
   color: '#d32f2f', // Red color for sarcasm
   fontStyle: 'italic',
-  padding: '15px',
+  padding: '20px',
   borderRadius: '8px',
-  marginBottom: '15px',
-  fontSize: '16px',
+  position: 'fixed',
+  top: '20px', // Position from the top
+  left: '50%',
+  transform: 'translateX(-50%)', // Center horizontally
+  fontSize: '18px',
   textAlign: 'center',
-  border: '2px solid #d32f2f',
+  zIndex: 1000, // Make sure it appears above other content
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  opacity: 1,
+  animation: 'popupAnimation 1s ease-out',
 };
+
+// Add CSS for the animation in the styles
+const css = `
+@keyframes popupAnimation {
+  0% {
+    transform: translateX(-50%) translateY(-20px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+`;
+// Injecting CSS into the head for animation
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = css;
+document.head.appendChild(styleSheet);
 
 export default MusicPlayer;
