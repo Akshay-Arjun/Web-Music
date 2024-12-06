@@ -3,6 +3,7 @@ import './MusicPlayer.css';
 
 function MusicPlayer({ selectedSong, handleDownload }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [sarcasticMessage, setSarcasticMessage] = useState('');
   const audioRef = useRef(null);
   const isInitialRender = useRef(true);
 
@@ -53,9 +54,10 @@ function MusicPlayer({ selectedSong, handleDownload }) {
   const handlePlay = () => {
     if (isPlaying) {
       audioRef.current.pause();
+      setSarcasticMessage('');
     } else {
       const randomLine = sarcasticLines[Math.floor(Math.random() * sarcasticLines.length)];
-      alert(randomLine);
+      setSarcasticMessage(randomLine);
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
@@ -80,6 +82,8 @@ function MusicPlayer({ selectedSong, handleDownload }) {
       <button className="play-button" onClick={() => handleDownload(selectedSong)}>
         Download
       </button>
+
+      {sarcasticMessage && <p className="sarcastic-message">{sarcasticMessage}</p>}
     </div>
   );
 }
