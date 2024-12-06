@@ -83,9 +83,22 @@ function MusicPlayer({ selectedSong, handleDownload }) {
         Download
       </button>
 
-      {sarcasticMessage && <p className="sarcastic-message">{sarcasticMessage}</p>}
+      {sarcasticMessage && (
+        <p className="sarcastic-message" style={sarcasticMessageStyle}>
+          {sarcasticMessage}
+        </p>
+      )}
     </div>
   );
 }
+
+// Inline styles for sarcastic messages
+const sarcasticMessageStyle = {
+  color: 'red',
+  fontStyle: 'italic',
+  marginTop: '10px',
+  fontSize: '16px',
+  textAlign: 'center',
+};
 
 export default MusicPlayer;
