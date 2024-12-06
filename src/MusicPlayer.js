@@ -75,6 +75,14 @@ function MusicPlayer({ selectedSong, handleDownload }) {
         src={selectedSong.downloadUrl.find((item) => item.quality === '320kbps').link}
         controls
       />
+      
+      {/* Sarcastic message above buttons */}
+      {sarcasticMessage && (
+        <div className="sarcastic-message" style={sarcasticMessageStyle}>
+          {sarcasticMessage}
+        </div>
+      )}
+
       <button className="play-button" onClick={handlePlay}>
         {isPlaying ? 'Pause' : 'Play'}
       </button>
@@ -82,23 +90,22 @@ function MusicPlayer({ selectedSong, handleDownload }) {
       <button className="play-button" onClick={() => handleDownload(selectedSong)}>
         Download
       </button>
-
-      {sarcasticMessage && (
-        <p className="sarcastic-message" style={sarcasticMessageStyle}>
-          {sarcasticMessage}
-        </p>
-      )}
     </div>
   );
 }
 
 // Inline styles for sarcastic messages
 const sarcasticMessageStyle = {
-  color: 'red',
+  backgroundColor: '#ffcc00', // Yellow background for attention
+  color: '#d32f2f', // Red color for sarcasm
   fontStyle: 'italic',
-  marginTop: '10px',
+  padding: '15px',
+  borderRadius: '8px',
+  marginBottom: '15px',
   fontSize: '16px',
   textAlign: 'center',
+  border: '2px solid #d32f2f',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
 export default MusicPlayer;
