@@ -14,21 +14,21 @@ function MusicPlayer({ selectedSong, handleDownload }) {
     "💰 Pause the music player and earn your incentives—those chats won’t clear themselves.",
     "📩 Your manager just pinged. They said no more music player sessions unless you finish an XM!",
     "🎶 This song is great, but you know what’s better? Replying to those unread chats.",
-    "💼 Stop pretending you're in a motivational video and get back to that XM prep.",
+    "💼 Stop pretending you're in a motivational video and get back to that CHAT.",
     "⏳ Work now, play the music player later. Unless you're planning to DJ your termination party.",
-    "🎯 Music player paused. Now go slay that chat backlog like a true office ninja.",
-    "⌛ Don’t make the customer wait so long they add ‘Are you still there?’ to the chat.",
+    "🎯 Music player should be paused and go slay that chat like a true office ninja.",
+    "⌛ While vibing to music, Don’t make the customer wait so long they add ‘Are you still there?’ to the chat.",
     "🛑 Your customers need solutions, not a DJ. Hit pause.",
     "📊 Remember, your next performance review isn’t graded on your music taste.",
     "😅 Playing music won’t increase your resolution rate. Sorry.",
     "💬 Your customers are typing… and probably wondering why you’re vibing instead of replying.",
-    "🔥 This playlist is fire, but so is the chat queue you’re ignoring.",
+    "🔥 This playlist is fire, but so is the customer on chat queue you’re ignoring.",
     "😢 Pause the music—your incentive tracker just shed a tear.",
     "🎵 Chats are the new beats. Get grooving on those customer issues.",
-    "📞 Your queue is calling, and it doesn’t sound like your favorite track.",
+    "📞 Your chat queue is calling, and it doesn’t sound like your favorite track.",
     "🎤 Why not remix some empathy into those chat replies?",
     "🚨 Stop the music player. You’ve got customers waiting to be wowed.",
-    "🧐 XM or Spotify? One helps your career, the other... well, doesn’t.",
+    "🧐 XM or This Song? One helps your career, the other... well, doesn’t.",
   ];
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function MusicPlayer({ selectedSong, handleDownload }) {
 
       setTimeout(() => {
         setShowPopup(false); // Hide the popup after 5 seconds
-      }, 5000); // 5 seconds duration
+      }, 7000); // 5 seconds duration
 
       if (audioRef.current) {
         audioRef.current.load();
